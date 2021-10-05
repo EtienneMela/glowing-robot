@@ -34,6 +34,7 @@
 
 <script>
 import { api } from '../helpers/helpers';
+import { TaskService } from '../../services/TaskService'
 export default {
   name: 'tasks',
   data() {
@@ -49,7 +50,16 @@ export default {
       this.flash('task deleted sucessfully!', 'success');
       const newtasks = this.tasks.filter(task => task._id !== id);
       this.tasks = newtasks;
-    }
+    },
+     async getTasksData() {
+    const accessToken = await this.$auth.getTokenSilently()
+    TaskService.getEventSingle(this.$route.params.id, accessToken)
+    .then(
+      (task => {
+        this.$set(this, "task", task);
+      }).bind(this)
+    );
+  }
   },
   async mounted() {
     this.tasks = await api.gettasks();
