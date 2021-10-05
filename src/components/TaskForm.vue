@@ -1,57 +1,62 @@
 <template>
- <form action="#" @submit.prevent="onSubmit">
-    <p v-if="errorsPresent" class="error">Please fill out both fields!</p>
+  <form action="#" @submit.prevent="onSubmit">
+    <p v-if="errorsPresent" class="error">Plz renseigner tous les champs</p>
 
-
-    <div class="ui labeled input fluid">
-      <div class="ui label">
-        <i class="calendar plus icon"></i>task
-      </div>
-      <input type="text" placeholder="Enter task..." v-model="task.task1" />
+    <div class="mb-3 mt-5">
+      <div class="form-label">Nom du produit</div>
+      <input type="text" class="form-control" placeholder="" v-model="task.title" />
     </div>
 
-    <div class="ui labeled input fluid">
-      <div class="ui label">
-   <i class="info circle icon"></i> Details
-      </div>
-      <input type="text" placeholder="Enter Details" v-model="task.task2" />
+    <div class="mb-3">
+      <div class="form-label">Description</div>
+      <input type="text" class="form-control" placeholder="" v-model="task.desc" />
     </div>
 
-    
+    <div class="mb-3">
+      <div class="form-label">Price</div>
+      <input type="text" class="form-control" placeholder="" v-model="task.price" />
+    </div>
 
-    <button class="positive ui button">Submit</button>
+    <div class="mb-3">
+      <div class="form-label">Img</div>
+      <input type="text" class="form-control" placeholder="" v-model="task.img" />
+    </div>
+
+    <button class="btn btn-primary mt-3">Valider</button>
   </form>
 </template>
 
 <script>
 export default {
-  name: 'task-form',
+  name: "task-form",
   props: {
     task: {
       type: Object,
       required: false,
       default: () => {
         return {
-          task1: '',
-          task2: ''
+          title: "",
+          desc: "",
+          price: "",
+          img: ""
         };
-      }
-    }
+      },
+    },
   },
   data() {
     return {
-      errorsPresent: false
+      errorsPresent: false,
     };
   },
   methods: {
-    onSubmit: function() {
-      if (this.task.task1 === '' || this.task.task2 === '') {
+    onSubmit: function () {
+      if (this.task.task1 === "" || this.task.task2 === "") {
         this.errorsPresent = true;
       } else {
-        this.$emit('createOrUpdate', this.task);
+        this.$emit("createOrUpdate", this.task);
       }
-    }
-  }
+    },
+  },
 };
 </script>
 

@@ -4,13 +4,21 @@ const { Schema } = mongoose;
 
 const taskSchema = new Schema(
   {
-    task1: {
+    title: {
       type: String,
       required: 'task1 cannot be blank'
     },
-    task2: {
+    desc: {
       type: String,
       required: 'task2  cannot be blank'
+    },
+    price: {
+      type: String,
+      required: 'Price cannot be blank'
+    },
+    img: {
+      type: String,
+      required: 'Img cannot be blank'
     }
   },
   { collection: 'task' }
