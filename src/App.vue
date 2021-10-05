@@ -1,36 +1,38 @@
 <template>
   <div id="app">
-    <div class="ui inverted segment navbar">
-      <div class="ui center aligned container">
-        <div class="ui large secondary inverted pointing menu compact">
-          <router-link to="/tasks" exact class="item">
-           <i class="tasks icon"></i> Tasks
-          </router-link>
-          <router-link to="/tasks/new" class="item">
-            <i class="plus circle icon"></i> New
-          </router-link>
-        </div>
+    <div
+      class="
+        d-flex
+        justify-content-between
+        align-items-center
+        border-bottom
+        pt-3
+        pb-3
+      "
+    >
+      <div>
+        <router-link to="/tasks" exact class="item link-dark p-3">
+          Catalogue
+        </router-link>
+        <router-link to="/tasks/new" class="item link-dark p-3">
+          New product
+        </router-link>
       </div>
-       <Nav />
+       <img style="width: 35px" src="./assets/shoes.png">
+      <div class="login"><Nav /></div>
     </div>
 
-    <div class="ui text container">
-      <div class="ui one column grid">
-        <div class="column">
-          <router-view />
-        </div>
-      </div>
-    </div>
+    <div class="container"><router-view /></div>
   </div>
 </template>
 
 <script>
 import Nav from "./components/Nav.vue";
 export default {
-  name: 'app',
+  name: "app",
   components: {
-    Nav
-  }
+    Nav,
+  },
 };
 </script>
 
@@ -38,6 +40,11 @@ export default {
 #app > div.navbar {
   margin-bottom: 1.5em;
 }
+
+.login {
+  margin-right: 10px;
+}
+
 .myFlash {
   width: 250px;
   margin: 10px;
