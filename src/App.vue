@@ -18,8 +18,9 @@
           New product
         </router-link>
       </div>
-       <img style="width: 35px" src="./assets/shoes.png">
+      <img style="width: 35px" src="./assets/shoes.png" />
       <div class="login"><Nav /></div>
+      <Socket />
     </div>
 
     <div class="container"><router-view /></div>
@@ -28,10 +29,13 @@
 
 <script>
 import Nav from "./components/Nav.vue";
+import Socket from "./components/Socket.vue";
+
 export default {
   name: "app",
   components: {
     Nav,
+    Socket,
   },
 };
 </script>

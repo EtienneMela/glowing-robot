@@ -15,6 +15,15 @@ mongoose.connect(
 
 const port = process.env.PORT || 3000;
 const app = express();
+let http = require('http').Server(app);
+let io = require('socket.io')(http);
+
+io.on('connection', (socket) => {
+  console.log(socket.id)
+  socket.on('SEND_MESSAGE', function (data) {
+    io.emit('MESSAGE', data)
+  });
+});
 
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -26,7 +35,7 @@ app.listen(port);
 app.use((req, res) => {
   res.status(404).send({ url: `${req.originalUrl} not found` });
 });
-const jwt = require("express-jwt"); 
+const jwt = require("express-jwt");
 const jwksRsa = require("jwks-rsa");
 
 // app.use()
