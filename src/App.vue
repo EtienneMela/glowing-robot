@@ -20,9 +20,8 @@
       </div>
       <img style="width: 35px" src="./assets/shoes.png" />
       <div class="login"><Nav /></div>
-      <Socket />
     </div>
-
+    <Socket />
     <div class="container"><router-view /></div>
   </div>
 </template>

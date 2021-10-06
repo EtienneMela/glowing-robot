@@ -15,8 +15,35 @@ mongoose.connect(
 
 const port = process.env.PORT || 3000;
 const app = express();
-let http = require('http').Server(app);
-let io = require('socket.io')(http);
+
+app.use(cors());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*')
+  res.setHeader('Access-Control-Allow-Headers', 'Origin,X-Requested-With,Content,Accept,Content-Type,Authorization')
+  res.setHeader('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE')
+  next()
+})
+
+routes(app);
+const server = app.listen(port);
+
+app.use((req, res) => {
+  res.status(404).send({ url: `${req.originalUrl} not found` });
+});
+const jwt = require("express-jwt");
+const jwksRsa = require("jwks-rsa");
+
+let io = require('socket.io')(server, {
+  cors: {
+    origin: "*",
+    methods: ["GET", "POST"],
+    allowedHeaders: ["my-custom-header"],
+    credentials: true
+  }
+});
 
 io.on('connection', (socket) => {
   console.log(socket.id)
@@ -24,19 +51,6 @@ io.on('connection', (socket) => {
     io.emit('MESSAGE', data)
   });
 });
-
-app.use(cors());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
-
-routes(app);
-app.listen(port);
-
-app.use((req, res) => {
-  res.status(404).send({ url: `${req.originalUrl} not found` });
-});
-const jwt = require("express-jwt");
-const jwksRsa = require("jwks-rsa");
 
 // app.use()
 
