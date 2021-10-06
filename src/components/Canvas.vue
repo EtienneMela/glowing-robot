@@ -9,11 +9,13 @@ export default {
   name: "ThreeTest",
   data() {
     return {
-      cube: null,
       renderer: null,
       scene: null,
       camera: null,
       hlight: null,
+      hlight2: null,
+      hlight3: null,
+      hlight4: null,
       shoes: null,
     };
   },
@@ -26,32 +28,53 @@ export default {
         0.1,
         1000
       );
+      this.scene.background = new THREE.Color( "#EEEDED");
 
       this.renderer = new THREE.WebGLRenderer();
       this.renderer.setSize(window.innerWidth, window.innerHeight);
       document.body.appendChild(this.renderer.domElement);
-
-      const geometry = new THREE.BoxGeometry(1, 1, 1);
-      const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
-      this.cube = new THREE.Mesh(geometry, material);
-      // this.scene.add(this.cube);
-
-      // this.camera.rotation.y = 5;
+  
 
       this.camera.position.z = 5;
 
-      this.hlight = new THREE.AmbientLight(0x404040, 100);
+      this.hlight = new THREE.PointLight(0xffffff, 1);
+      this.hlight.position.set(0,300,500)
       this.scene.add(this.hlight);
+
+      this.hlight2 = new THREE.PointLight(0xffffff, 1);
+      this.hlight2.position.set(500,100,0)
+      this.scene.add(this.hlight2);
+
+      this.hlight3 = new THREE.PointLight(0xffffff, 1);
+      this.hlight3.position.set(0,100,500)
+      this.scene.add(this.hlight3);
+
+      this.hlight4 = new THREE.PointLight(0xffffff, 1);
+      this.hlight4.position.set(0,300,500)
+      this.scene.add(this.hlight4);
 
       const loader = new GLTFLoader();
 
+
       loader.load(
-        "./3d-assets/scene.gltf",
+        "./3d-assets/electronica/scene.gltf",
         (gltf) => {
+          gltf.scene.scale.set(10,10,10)
           this.shoes = gltf.scene.children[0];
-          this.shoes.rotation.x = 100;
-          this.shoes.rotation.y = 100;
-          this.shoes.rotation.z = 100;
+          this.shoes.rotation.x = 300;
+          this.shoes.rotation.y = 0;
+          this.shoes.rotation.z = -200;
+          this.shoes.name = "lagrosse3D"
+          
+          //let model = gltf.scene.children[0];
+          //let part = model.getObjectByName( 'lagrosse3D' )
+          /*
+          const textureLoader = new THREE.TextureLoader();
+          textureLoader.crossOrigin = true;
+          const texture = textureLoader.load( './3d-assets/textures/NikeShoe_baseColor.jpeg' )
+          part.material = new THREE.MeshPhongMaterial( { map: texture } );   
+*/
+
           /* eslint-disable */
           console.log("loader", loader);
           this.scene.add(gltf.scene);
@@ -65,11 +88,7 @@ export default {
     },
     animate: function () {
       requestAnimationFrame(this.animate);
-
-      this.cube.rotation.x += 0.01;
-      this.cube.rotation.y += 0.01;
-
-      // this.shoes.rotation.x += 0.01;
+      //this.shoes.rotation.x += 0.01;
 
       this.renderer.render(this.scene, this.camera);
     },
