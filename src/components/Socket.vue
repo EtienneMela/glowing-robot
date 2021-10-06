@@ -1,4 +1,3 @@
-
 <template>
   <div class="chat">
     <img class="icon" src="../assets/message.png" alt="" />

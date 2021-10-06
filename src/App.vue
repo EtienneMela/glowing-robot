@@ -11,6 +11,7 @@
       "
     >
       <div>
+         <Canvas />
         <router-link to="/tasks" exact class="item link-dark p-3">
           Catalogue
         </router-link>
@@ -29,12 +30,14 @@
 <script>
 import Nav from "./components/Nav.vue";
 import Socket from "./components/Socket.vue";
+import Canvas from "./components/Canvas.vue"
 
 export default {
   name: "app",
   components: {
     Nav,
     Socket,
+    Canvas
   },
 };
 </script>
