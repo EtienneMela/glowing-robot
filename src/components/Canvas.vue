@@ -30,40 +30,36 @@ export default {
       );
       this.scene.background = new THREE.Color( "#EEEDED");
 
-      this.renderer = new THREE.WebGLRenderer();
+      this.renderer = new THREE.WebGLRenderer({antialias: true});
       this.renderer.setSize(window.innerWidth, window.innerHeight);
+      this.renderer.setPixelRatio(window.devicePixelRatio);
       document.body.appendChild(this.renderer.domElement);
   
-
       this.camera.position.z = 5;
 
       this.hlight = new THREE.PointLight(0xffffff, 1);
-      this.hlight.position.set(0,300,500)
+      this.hlight.position.set(0,300,1000)
       this.scene.add(this.hlight);
 
       this.hlight2 = new THREE.PointLight(0xffffff, 1);
-      this.hlight2.position.set(500,100,0)
+      this.hlight2.position.set(1000,100,0)
       this.scene.add(this.hlight2);
 
       this.hlight3 = new THREE.PointLight(0xffffff, 1);
-      this.hlight3.position.set(0,100,500)
+      this.hlight3.position.set(100,0,1000)
       this.scene.add(this.hlight3);
-
-      this.hlight4 = new THREE.PointLight(0xffffff, 1);
-      this.hlight4.position.set(0,300,500)
-      this.scene.add(this.hlight4);
 
       const loader = new GLTFLoader();
 
 
       loader.load(
-        "./3d-assets/electronica/scene.gltf",
+        "./3d-assets/scene.gltf",
         (gltf) => {
-          gltf.scene.scale.set(10,10,10)
+          gltf.scene.scale.set(2,2,2)
           this.shoes = gltf.scene.children[0];
           this.shoes.rotation.x = 300;
           this.shoes.rotation.y = 0;
-          this.shoes.rotation.z = -200;
+          this.shoes.rotation.z = -300;
           this.shoes.name = "lagrosse3D"
           
           //let model = gltf.scene.children[0];
@@ -72,7 +68,7 @@ export default {
           const textureLoader = new THREE.TextureLoader();
           textureLoader.crossOrigin = true;
           const texture = textureLoader.load( './3d-assets/textures/NikeShoe_baseColor.jpeg' )
-          part.material = new THREE.MeshPhongMaterial( { map: texture } );   
+          part.material = new THREE.MeshPhongMaterial( { map: texture } );   a
 */
 
           /* eslint-disable */
@@ -88,7 +84,7 @@ export default {
     },
     animate: function () {
       requestAnimationFrame(this.animate);
-      //this.shoes.rotation.x += 0.01;
+      this.shoes.rotation.z += 0.01;
 
       this.renderer.render(this.scene, this.camera);
     },
